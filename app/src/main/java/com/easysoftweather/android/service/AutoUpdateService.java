@@ -30,7 +30,7 @@ public class AutoUpdateService extends Service {
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
-        return null;
+        //return null;
     }
     @Override
     public int onStartCommand(Intent intent, int flags,int startId){
@@ -40,7 +40,7 @@ public class AutoUpdateService extends Service {
         int anHour = 8 * 60 * 60 * 1000; //这是8小时的毫秒数
         Long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AutoUpdateService.class);
-        PendingIntent pi = PendingIntent.getActivities(.getService(this,0,i,0));
+        PendingIntent pi = PendingIntent.getService(this,0,i,0);
         manager.cancel(pi);
         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime,pi);
         return  super.onStartCommand(intent,flags,startId);
@@ -72,7 +72,6 @@ public class AutoUpdateService extends Service {
                                 AutoUpdateService.this).edit();
                         editor.putString("weather", responseText);
                         editor.apply();
-                        )
                     }
                 }
             });
